@@ -9,7 +9,7 @@
             "request": "launch",
             "name": "test data publish",
             "program": "${workspaceFolder}/ion-managedata.js"
-        }
+        },
         {
             "type": "node",
             "request": "launch",

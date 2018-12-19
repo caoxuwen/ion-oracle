@@ -43,6 +43,8 @@ module.exports.publish = function (prices) {
                     console.log('An error has occured:');
                     console.log(err);
                 });
+        }).catch(function(err) {
+            console.log("Error", err);
         });
 };
 
