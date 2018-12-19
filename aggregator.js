@@ -6,8 +6,8 @@ const gemini = require("./gemini");
 const coinbase = require("./coinbase");
 const bitstamp = require("./bitstamp");
 const kraken = require("./kraken");
-
-const delay = 1000;
+const ion = require("./ion-api");
+const delay = 15000;
 
 async.forever(
 	function (next) {
@@ -58,29 +58,34 @@ async.forever(
 			}
 		});
 
-		if (btc_ref_count > 0) {
+		let data_publish = {};
+		if (btc_ref_count > 1) {
 			btc_ref_price = btc_ref_price / btc_ref_count;
 			console.log("BTC:", "aggregate", btc_ref_price.toFixed(2));
+			data_publish["BTC-USD"] = btc_ref_price;
 
 			// need the + for conversion to float
-			winston.log('info', { "source": "aggregate", "BTC-USD": +btc_ref_price.toFixed(2)});
+			winston.log('info', { "source": "aggregate", "BTC-USD": +btc_ref_price.toFixed(2) });
 		} else {
 			console.log("BTC:", "aggregate", "offline");
 
-			winston.log('error', { "source": "aggregate", "reason": "no valid BTC feed"});
+			winston.log('error', { "source": "aggregate", "reason": "no valid BTC feed" });
 		}
 
-		if (eth_ref_count > 0) {			
+		if (eth_ref_count > 1) {
 			eth_ref_price = eth_ref_price / eth_ref_count;
 			console.log("ETH:", "aggregate", eth_ref_price.toFixed(2));
+			data_publish["ETH-USD"] = eth_ref_price;
 
 			// need the + for conversion to float
-			winston.log('info', { "source": "aggregate", "ETH-USD": +eth_ref_price.toFixed(2)});
+			winston.log('info', { "source": "aggregate", "ETH-USD": +eth_ref_price.toFixed(2) });
 		} else {
 			console.log("ETH:", "aggregate", "offline");
 
-			winston.log('error', { "source": "aggregate", "reason": "no valid ETH feed"});
+			winston.log('error', { "source": "aggregate", "reason": "no valid ETH feed" });
 		}
+
+		ion.publish(data_publish);
 
 		setTimeout(function () {
 			next();

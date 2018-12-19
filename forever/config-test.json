@@ -1,0 +1,9 @@
+{
+	// forever.js config
+    "uid": "app",
+    "append": true,
+    "watch": true,
+    "script": "aggregator.js",
+    "sourceDir": "/Users/xuwen/Developer/ion-oracle",
+    "logFile":"/Users/xuwen/Developer/ion-oracle/oracle_output.log"
+}

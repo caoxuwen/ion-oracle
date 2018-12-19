@@ -7,8 +7,14 @@
         {
             "type": "node",
             "request": "launch",
-            "name": "Launch Program",
+            "name": "test data publish",
             "program": "${workspaceFolder}/ion-managedata.js"
+        }
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "Launch Program",
+            "program": "${workspaceFolder}/aggregator.js"
         }
     ]
 }
