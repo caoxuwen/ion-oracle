@@ -4,5 +4,5 @@
     "append": true,
     "watch": true,
     "script": "aggregator.js",
-    "sourceDir": "../"
-}
+    "sourceDir": "/home/ubuntu/ion-oracle",
+    "logFile":"/home/ubuntu/oracle_output.log"}
