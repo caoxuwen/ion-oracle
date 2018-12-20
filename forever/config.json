@@ -2,7 +2,7 @@
 	// forever.js config
     "uid": "app",
     "append": true,
-    "watch": true,
+    "watch": false,
     "script": "aggregator.js",
     "sourceDir": "/home/ubuntu/ion-oracle",
     "logFile":"/home/ubuntu/logs/oracle_output.log"}
