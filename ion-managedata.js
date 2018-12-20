@@ -3,7 +3,7 @@ IONSdk.Network.use(new IONSdk.Network("Test ION Network ; Nov 2018"));
 
 const server = new IONSdk.Server('http://localhost:8000', { allowHttp: true });
 
-const secret = "SAK4GZXTIA4FHHM67OM2CCF6HWECHMTGQGQSSIIWOYFZ2MMYNIRRPHVM"
+const secret = ""
 // Keys for accounts to issue and receive the new asset                                                               
 let srcKeys = IONSdk.Keypair
     .fromSecret(secret);

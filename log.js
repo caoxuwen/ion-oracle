@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 const logevents = false;
-
+/*
 require('winston-loggly-bulk');
 const winston = require('winston');
 winston.add(winston.transports.Loggly, {
@@ -10,7 +10,7 @@ winston.add(winston.transports.Loggly, {
     tags: ["Winston-NodeJS"],
     json: true
 });
-
+*/
 if (logevents) {
     module.exports.winston = winston;
 } else {

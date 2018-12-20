@@ -7,7 +7,8 @@ const coinbase = require("./coinbase");
 const bitstamp = require("./bitstamp");
 const kraken = require("./kraken");
 const ion = require("./ion-api");
-const delay = 15000;
+const delay = 15000; //15 secs
+const threshold = 2; //at least sources
 
 async.forever(
 	function (next) {
@@ -59,7 +60,7 @@ async.forever(
 		});
 
 		let data_publish = {};
-		if (btc_ref_count > 1) {
+		if (btc_ref_count >= threshold) {
 			btc_ref_price = btc_ref_price / btc_ref_count;
 			console.log("BTC:", "aggregate", btc_ref_price.toFixed(2));
 			data_publish["BTC-USD"] = btc_ref_price;
@@ -72,7 +73,7 @@ async.forever(
 			winston.log('error', { "source": "aggregate", "reason": "no valid BTC feed" });
 		}
 
-		if (eth_ref_count > 1) {
+		if (eth_ref_count >= threshold) {
 			eth_ref_price = eth_ref_price / eth_ref_count;
 			console.log("ETH:", "aggregate", eth_ref_price.toFixed(2));
 			data_publish["ETH-USD"] = eth_ref_price;
