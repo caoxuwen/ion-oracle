@@ -15,6 +15,12 @@
             "request": "launch",
             "name": "Launch Program",
             "program": "${workspaceFolder}/aggregator.js"
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "funding",
+            "program": "${workspaceFolder}/ion-inflation.js"
         }
     ]
 }

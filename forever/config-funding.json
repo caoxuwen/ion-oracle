@@ -1,8 +1,8 @@
 {
 	// forever.js config
-    "uid": "oracle",
+    "uid": "funding",
     "append": true,
     "watch": false,
-    "script": "aggregator.js",
+    "script": "funding.js",
     "sourceDir": "/home/ubuntu/ion-oracle",
-    "logFile":"/home/ubuntu/logs/oracle_output.log"}
+    "logFile":"/home/ubuntu/logs/ion-inflation.log"}

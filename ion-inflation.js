@@ -1,33 +1,30 @@
 const IONSdk = require('ion-sdk');
 
-IONSdk.Network.use(new IONSdk.Network("Test ION Network ; Nov 2018"));
+IONSdk.Network.use(new IONSdk.Network(process.env.CUSTOM_NETWORK_PASSPHRASE));
+const server = new IONSdk.Server(process.env.CUSTOM_HORIZON_URL, { allowHttp: true });
+const secret = process.env.ORACLE_KEY;
+const srcKeys = IONSdk.Keypair.fromSecret(secret);
 
-var server = new IONSdk.Server('https://api.ion.one');
+module.exports.runfunding = function () {
+    server.loadAccount(srcKeys.publicKey())
+        .then(function (account) {
+            var operation = IONSdk.Operation.inflation();
+            var transaction = new IONSdk.TransactionBuilder(account)
+                .addOperation(
+                    operation)
+                .build();
 
-var secret = "SBDZIWLZM5OXKL2ZC56YMJT4C7VUIFQOBW6CDMAXFCQ2GP5K7RSXVIZB"
+            transaction.sign(IONSdk.Keypair.fromSecret(secret));
 
-// Keys for accounts to issue and receive the new asset                                                               
-var srcKeys = IONSdk.Keypair
-    .fromSecret(secret);
+            server.submitTransaction(transaction)
+                .then(function (transactionResult) {
+                    console.log(JSON.stringify(transactionResult, null, 2));
+                    console.log('\nSuccess!');
+                })
+                .catch(function (err) {
+                    console.log('An error has occured:');
+                    console.log(err);
+                });
 
-server.loadAccount(srcKeys.publicKey())
-    .then(function (account) {
-        var operation = IONSdk.Operation.inflation();
-        var transaction = new IONSdk.TransactionBuilder(account)
-            .addOperation(
-                operation)
-            .build();
-
-        transaction.sign(IONSdk.Keypair.fromSecret(secret));
-
-        server.submitTransaction(transaction)
-            .then(function (transactionResult) {
-                console.log(JSON.stringify(transactionResult, null, 2));
-                console.log('\nSuccess!');
-            })
-            .catch(function (err) {
-                console.log('An error has occured:');
-                console.log(err);
-            });
-
-    });
+        });
+};
