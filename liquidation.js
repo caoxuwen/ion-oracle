@@ -1,11 +1,11 @@
 #!/usr/bin/env node
 const async = require('async');
-const ion = require("./ion-inflation");
-const delay = 1000 * 60 * 5; // try every 5 mins
+const ion = require("./ion-liquidation");
+const delay = 1000 * 60 ; // try every min
 
 async.forever(
 	function (next) {
-		ion.runfunding();
+		ion.runliquidation();
 
 		setTimeout(function () {
 			next();

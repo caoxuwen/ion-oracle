@@ -1,12 +1,8 @@
 const IONSdk = require('ion-sdk');
-IONSdk.Network.use(new IONSdk.Network("Test ION Network ; Nov 2018"));
-
-const server = new IONSdk.Server('http://localhost:8000', { allowHttp: true });
-
-const secret = ""
-// Keys for accounts to issue and receive the new asset                                                               
-let srcKeys = IONSdk.Keypair
-    .fromSecret(secret);
+IONSdk.Network.use(new IONSdk.Network(process.env.CUSTOM_NETWORK_PASSPHRASE));
+const server = new IONSdk.Server(process.env.CUSTOM_HORIZON_URL, { allowHttp: true });
+const secret = process.env.ORACLE_KEY;
+const srcKeys = IONSdk.Keypair.fromSecret(secret);
 
 server.loadAccount(srcKeys.publicKey())
     .then(function (account) {
@@ -14,8 +10,8 @@ server.loadAccount(srcKeys.publicKey())
         //const url = Buffer.from(data, 'base64').toString();
         var transaction = new IONSdk.TransactionBuilder(account)
             .addOperation(IONSdk.Operation.manageData({
-                name: "ETH",
-                value: "100.00"
+                name: "ETH-USD",
+                value: "200.00"
             }))
             .build();
 

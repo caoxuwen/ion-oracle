@@ -1,0 +1,9 @@
+{
+	// forever.js config
+    "uid": "app",
+    "append": true,
+    "watch": true,
+    "script": "liquidation.js",
+    "sourceDir": "/home/ubuntu/ion-oracle",
+    "logFile":"/home/ubuntu/logs/ion-liquidation.log"
+}
